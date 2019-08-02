@@ -52,7 +52,6 @@ class CallSupportModal extends React.Component {
       // restaure the initial config on end call
       this.setState({
         volume: 100,
-        volumeOld: 100,
         isMuted: false,
         isKeypadOpen: false,
         keysPressed: [],
@@ -69,23 +68,16 @@ class CallSupportModal extends React.Component {
   }
 
   onMutedToggle = () => {
-    const { isMuted, volume, volumeOld } = this.state;
+    const { isMuted } = this.state;
 
     this.setState({
       isMuted: !isMuted,
     });
 
     if (isMuted) {
-      this.setState({
-        volume: volumeOld,
-      });
-      this.flowrouteClient.setOutputVolume(volumeOld);
+      this.flowrouteClient.getActiveCall().unmute()
     } else {
-      this.setState({
-        volume: 0,
-        volumeOld: volume,
-      });
-      this.flowrouteClient.setOutputVolume(0);
+      this.flowrouteClient.getActiveCall().mute()
     }
   }
 
@@ -96,16 +88,9 @@ class CallSupportModal extends React.Component {
   onHandleVolume = ({ target }) => {
     this.setState({
       volume: target.value,
-      volumeOld: target.value,
     });
 
     this.flowrouteClient.setOutputVolume(target.value);
-
-    if (target.value === '0') {
-      this.setState({ isMuted: true });
-    } else {
-      this.setState({ isMuted: false });
-    }
   }
 
   onClickKeypad = ({ target }) => {
