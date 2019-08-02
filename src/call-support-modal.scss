@@ -1,0 +1,102 @@
+@import 'variables';
+
+.call-support {
+  &__modal {
+    background-color: $white;
+    border-radius: 4px;
+    // position: fixed;
+    width: 281px;
+    // right: 20px;
+    // bottom: 20px;
+    // z-index: 1000;
+    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  &__header {
+    padding: 4px 4px 0 8px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $gray5;
+
+    h3 {
+      margin: 0;
+      font-size: 12px;
+      color: black;
+      line-height: 2;
+    }
+  }
+
+  &__close {
+    border-radius: 50%;
+    background-color: transparent;
+    font-size: 12px;
+    height: 20px;
+    width: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border-bottom: none;
+
+    &:focus,
+    &:hover {
+      background-color: #bdbdbd;
+    }
+    &:active {
+      background-color: darken(#bdbdbd, 12%);
+    }
+  }
+
+  &__body {
+    padding: 25px 20px 15px;
+  }
+
+  &__number {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+
+  &__status {
+    text-align: center;
+    margin-bottom: 25px;
+    color: $gray7;
+    font-size: 12px;
+  }
+
+  &__display-keys {
+    padding: 10px 10px;
+    border-top: 1px solid $gray5;
+    word-break: break-all;
+    line-height: 1.5;
+    font-size: 16px
+  }
+
+  &__keypad {
+    margin-bottom: 15px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__footer {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid $gray5;
+  }
+
+  &__volume {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    label {
+      font-weight: normal;
+      font-size: 14px;
+    }
+  }
+}

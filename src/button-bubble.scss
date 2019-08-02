@@ -1,0 +1,81 @@
+@import 'variables';
+
+.button-bubble {
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $gray5;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  border: none;
+
+  &:focus,
+  &:hover {
+    background-color: darken($gray5, 5%);
+  }
+  &:active {
+    background-color: darken($gray5, 12%);
+  }
+  &:disabled {
+    background-color: scale-color($gray5, $saturation: -50%);
+  }
+
+  &__red {
+    background-color: $red;
+
+    &:focus,
+    &:hover {
+      background-color: darken($red, 5%);
+    }
+    &:active {
+      background-color: darken($red, 12%);
+    }
+    &:disabled {
+      background-color: scale-color($red, $saturation: -50%);
+    }
+  }
+
+  &__green {
+    background-color: $green;
+
+    &:focus,
+    &:hover {
+      background-color: darken($green, 5%);
+    }
+    &:active {
+      background-color: darken($green, 12%);
+    }
+    &:disabled {
+      background-color: scale-color($green, $saturation: -50%);
+    }
+  }
+
+  &__blue {
+    background-color: $blue;
+
+    &:focus,
+    &:hover {
+      background-color: darken($blue, 5%);
+    }
+    &:active {
+      background-color: darken($blue, 12%);
+    }
+    &:disabled {
+      background-color: scale-color($blue, $saturation: -50%);
+    }
+  }
+}
+
+.button-bubble-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__label {
+    margin-top: 8px;
+    font-size: 10px;
+  }
+}

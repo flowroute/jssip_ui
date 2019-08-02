@@ -1,0 +1,40 @@
+.keypad {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  &__number {
+    max-width: 33.3333%;
+    flex-basis: 33.3333%;
+    background-color: #F8F8F8;
+    border: 1px solid #A6A6A6;
+    border-right-width: 0;
+    border-top-width: 0;
+    outline: none;
+    font-size: 14px;
+    padding: 12px;
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      border-top-width: 1px;
+    }
+    &:nth-of-type(3n + 3) {
+      border-right-width: 1px;
+    }
+    &:last-child {
+      box-shadow: 1px 0px #a6a6a6;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: darken(#F8F8F8, 5%);
+    }
+    &:active {
+      background-color: darken(#F8F8F8, 12%);
+    }
+    &:disabled {
+      background-color: scale-color(#F8F8F8, $saturation: -50%);
+    }
+  }
+}
