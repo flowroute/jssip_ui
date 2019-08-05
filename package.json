@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rimraf -r demo && mv build demo && mv demo/index.html demo/ui.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -30,5 +30,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.3"
   }
 }
