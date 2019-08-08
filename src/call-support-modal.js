@@ -14,8 +14,8 @@ class CallSupportModal extends React.Component {
     onClose: PropTypes.func.isRequired,
   }
 
-  static disabledCallButton(status) {
-    return status !== '' && status !== 'ended' && status !== 'registered';
+  static isEnabledCallButton(status) {
+    return status === 'ended' || status === 'registered' || status === 'failed';
   }
 
   constructor(props) {
@@ -41,6 +41,17 @@ class CallSupportModal extends React.Component {
 
   componentDidMount() {
     this.flowrouteClient.start();
+  }
+
+  componentWillUnmount() {
+    const { isCall } = this.state;
+
+    this.flowrouteClient.onUserAgentAction = () => {};
+
+    if (isCall) {
+      this.flowrouteClient.hangup();
+    }
+    this.flowrouteClient.stop();
   }
 
   onCallToggle = () => {
@@ -75,9 +86,9 @@ class CallSupportModal extends React.Component {
     });
 
     if (isMuted) {
-      this.flowrouteClient.getActiveCall().unmute()
+      this.flowrouteClient.getActiveCall().unmute();
     } else {
-      this.flowrouteClient.getActiveCall().mute()
+      this.flowrouteClient.getActiveCall().mute();
     }
   }
 
@@ -98,7 +109,7 @@ class CallSupportModal extends React.Component {
 
     keysPressed.push(target.value);
 
-    this.flowrouteClient.getActiveCall().sendDTMF(target.value);
+    this.flowrouteClient.sendRtpDTMF(target.value);
 
 
     this.setState({ keysPressed });
@@ -118,11 +129,9 @@ class CallSupportModal extends React.Component {
         });
         break;
       case 'ended':
+      case 'failed':
         this.setState({
           isCall: false,
-        });
-
-        this.setState({
           volume: 100,
           isMuted: false,
           isKeypadOpen: false,
@@ -181,13 +190,13 @@ class CallSupportModal extends React.Component {
           )}
           <div className="call-support__actions">
             {!isCall && (
-              <ButtonBubble icon="call-start" label="call" green onClick={this.onCallToggle} disabled={CallSupportModal.disabledCallButton(status)} />
+              <ButtonBubble id="btn-call-start" icon="call-start" label="call" green onClick={this.onCallToggle} disabled={!CallSupportModal.isEnabledCallButton(status)} />
             )}
             {isCall && (
               <Fragment>
-                <ButtonBubble icon="muted" label={isMuted ? 'unmute' : 'mute'} blue={isMuted} onClick={this.onMutedToggle} />
-                <ButtonBubble icon="keypad" label="keypad" blue={isKeypadOpen} onClick={this.onKeypadToggle} />
-                <ButtonBubble icon="call-end" label="end call" red onClick={this.onCallToggle} />
+                <ButtonBubble id="btn-muted" icon="muted" label={isMuted ? 'unmute' : 'mute'} blue={isMuted} onClick={this.onMutedToggle} />
+                <ButtonBubble id="btn-keypad" icon="keypad" label="keypad" blue={isKeypadOpen} onClick={this.onKeypadToggle} />
+                <ButtonBubble id="btn-call-end" icon="call-end" label="end call" red onClick={this.onCallToggle} />
               </Fragment>
             )}
           </div>
